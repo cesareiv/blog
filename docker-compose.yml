@@ -1,0 +1,42 @@
+version: '3'
+services:
+  nginx:
+    build: nginx
+    image: blog/nginx
+    ports:
+      - "80:80"
+    networks:
+      - blog_app
+
+  flask:
+    build:
+      context: backend
+    image: blog/flask
+    ports:
+      -"5000:5000"
+    networks:
+      - blog_app
+
+  redis:
+    build:
+      context: backend
+    image: blog/redis
+    ports: ""
+    networks:
+      -blog_app
+      
+  node:
+    build:
+      context: frontend
+    image: blog/react
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend/src:/app/blog-app/src:ro
+    networks:
+      - blog_app
+
+
+networks:
+  blog_app:
+    driver: bridge
