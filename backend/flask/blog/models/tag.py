@@ -4,6 +4,21 @@ class Tag():
         self._id = id
         self._title = title
 
+        self.data_types = {
+            'id'     : int,
+            'title'  : str
+        }
+
+        self.attribute_map = {
+            'id'     : 'id',
+            'title'  : 'title'
+        }
+        pass
+
+    @classmethod
+    def from_dict(cls, dikt) -> 'Tag':
+        return util.deserialise_model(dikt, cls)
+
     @property
     def id(self) -> int:
         """get the id of the Tag"""

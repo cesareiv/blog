@@ -1,16 +1,45 @@
 from datetime import date, datetime
-from models.tag import Tag
+
+import blog.util
+
+from typing import List, Dict
+from blog.models.tag import Tag
 
 class Post():
 
     def __init__(self, id: int=None, title: str=None,
                  body: str=None, tags: List[Tag]=None, status: str=None):
+
+        self.data_types = {
+            'id'     : int,
+            'title'  : str,
+            'body'   : str,
+            'tags'   : List[Tag],
+            'status' : str
+        }
+
+        self.attribute_map = {
+            'id'     : 'id',
+            'title'  : 'title',
+            'body'   : 'body',
+            'tags'   : 'tags',
+            'status' : 'status'
+        }
+
+        
         self._id = id
         self._title = title
         self._body = body
         self._tags = tags
         self._status = status
 
+        pass
+
+    @classmethod
+    def from_dict(cls, dikt) -> 'Post':
+        """returns the dict as a model"""
+        return util.deserialize_model(dikt, cls)
+        
     @property
     def id(self) -> int:
         """get the id of the Post"""
