@@ -1,0 +1,26 @@
+version: '3'
+services:
+
+  redis:
+    build: redis/
+    image: blog/redis
+    hostname: redis
+    networks:
+      - backend-test
+
+  flask:
+    build:
+      context: flask/
+    image: blog/flask
+    environment:
+      - PRODUCTION=${PRODUCTION}
+    entrypoint: "/usr/local/bin/wait-for-it.sh --host=redis --port=6379 -- "
+    command: ["pytest"]
+    working_dir: /app/tests
+    networks:
+      - backend-test
+    volumes:
+      - ./flask/tests:/app/tests:ro
+
+networks:
+  backend-test:

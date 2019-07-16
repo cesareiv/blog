@@ -1,14 +1,14 @@
 from datetime import date, datetime
 
-import blog.util
+from blog import util
 
 from typing import List, Dict
 from blog.models.tag import Tag
 
 class Post():
 
-    def __init__(self, id: int=None, title: str=None,
-                 body: str=None, tags: List[Tag]=None, status: str=None):
+    def __init__(self, id: int=None, title: str="untitled",
+                 body: str=None, tags: List[Tag]=None, status: str="draft"):
 
         self.data_types = {
             'id'     : int,
@@ -74,11 +74,11 @@ class Post():
         return self._body
 
     @body.setter
-    def body(self, title: str):
+    def body(self, body: str):
         """sets the title of this Post """
 
         if body is None:
-            raise ValueError("Invalid value for `title`, must not be `None`")
+            raise ValueError("Invalid value for `body`, must not be `None`")
 
         self._body = body
 

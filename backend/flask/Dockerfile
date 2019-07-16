@@ -41,8 +41,8 @@ RUN apk add --virtual build_dependencies build-base libffi-dev && \
     pip install --upgrade pip -r /tmp/pip/requirements.txt && \ 
     apk del build_dependencies
 
-# copy all the source code from the 'src' folder into "/app"
-COPY . /app/
+# copy all the source code from the 'blog' folder into "/app"
+COPY src/ /app/
 
 
 

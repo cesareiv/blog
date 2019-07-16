@@ -1,3 +1,5 @@
+from blog import util
+
 class Tag():
 
     def __init__(self, id: int=None, title: str=None):
@@ -17,7 +19,7 @@ class Tag():
 
     @classmethod
     def from_dict(cls, dikt) -> 'Tag':
-        return util.deserialise_model(dikt, cls)
+        return util.deserialize_model(dikt, cls)
 
     @property
     def id(self) -> int:

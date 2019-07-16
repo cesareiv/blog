@@ -30,29 +30,20 @@ posts_bp = Blueprint('posts_bp',
                      template_folder='templates',
                      url_prefix='/api/v1')
 
+@posts_bp.route("/hello", methods=['GET'])
+def hello():
+    log.debug("Servicing HELLO WORLD")
+    return "HELLO WORLD"
+
 
 #############
 #/posts #
 #############
 """
-GET: get all posts
+GET
 """
 @posts_bp.route("/posts", methods=["GET"])
 def get_posts():
-    log.debug("Servicing get crop API")
+    log.debug("Servicing get posts API")
 
-    expand = request.args.get('expand')
-    
-    if not crop_id:
-        message = json.dumps({"Message": "Bad Request"})
-        abort(Response(message,400))
-        pass
-
-    crop = MesoCrop.get_by_id(crop_id, expand)
-
-    if crop is None:
-        message = json.dumps({"Message": "Crop not Found"})
-        abort(Response(message, 404))
-        pass
-    else:
-        return jsonify(crop), 200
+    return

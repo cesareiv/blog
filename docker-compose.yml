@@ -1,12 +1,13 @@
 version: '3'
 services:
-  # nginx:
-  #   build: nginx
-  #   image: blog/nginx
-  #   ports:
-  #     - "80:80"
-  #   networks:
-  #     - blog_app
+  nginx:
+    build:
+      context: frontend/nginx
+    image: blog/nginx
+    ports:
+      - "80:80"
+    networks:
+      - blog_app
 
   flask:
     build:
@@ -17,15 +18,15 @@ services:
     networks:
       - blog_app
 
-  # redis:
-  #   build:
-  #     context: backend
-  #   image: blog/redis
-  #   hostname: redis
-  #   volumes:
-  #     - redis-data:/data
-  #   networks:
-  #     - blog_app
+  redis:
+    build:
+      context: backend/redis
+    image: blog/redis
+    hostname: redis
+    volumes:
+      - redis-data:/data
+    networks:
+      - blog_app
       
   # node:
   #   build:
@@ -38,6 +39,8 @@ services:
   #   networks:
   #     - blog_app
 
+volumes:
+  redis-data:
 
 networks:
   blog_app:
