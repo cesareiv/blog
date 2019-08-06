@@ -39,7 +39,20 @@ class Post():
     def from_dict(cls, dikt) -> 'Post':
         """returns the dict as a model"""
         return util.deserialize_model(dikt, cls)
-        
+
+    def as_dict(self) -> dict:
+        """returns the model as dict"""
+        tags = []
+        for tag in self.tags:
+            tags.append(tag.title)
+        return {
+            'id'     : self.id,
+            'title'  : self.title,
+            'body'   : self.body,
+            'tags'   : tags,
+            'status' : self.status
+        }
+    
     @property
     def id(self) -> int:
         """get the id of the Post"""

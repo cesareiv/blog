@@ -21,6 +21,9 @@ class Tag():
     def from_dict(cls, dikt) -> 'Tag':
         return util.deserialize_model(dikt, cls)
 
+    def as_dict(self) -> dict:
+        return {'title' : self.title}
+    
     @property
     def id(self) -> int:
         """get the id of the Tag"""

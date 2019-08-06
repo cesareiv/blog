@@ -1,11 +1,5 @@
 import datetime
-
 import typing
-
-def some_utility_function(some_integer: int, some_string: str):
-    log = Log()
-    log.info("I am a utility function %s %d" % some_string, some_integer)
-
 
 class Singleton(type):
     _instances = {}
@@ -158,3 +152,9 @@ def _deserialize_dict(data, boxed_type):
     """
     return {k: _deserialize(v, boxed_type)
             for k, v in data.items()}
+
+def is_empty(e):
+    if e:
+        return False
+    else:
+        return True

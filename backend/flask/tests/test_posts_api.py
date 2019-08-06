@@ -66,8 +66,8 @@ class Test_API:
     # test getting posts by status
     def test_get_by_status(self, flask_service):
         d = pc.save_post(req1)
-        e = pc.get_posts_by_status("published")
-        f = pc.get_posts_by_status("draft")
+        e = pc.get_posts_by_status(["published"])
+        f = pc.get_posts_by_status(["draft"])
         assert e[0].title == 'new post'
         assert e[0].status == 'published'
         assert f[0].title == 'new title'

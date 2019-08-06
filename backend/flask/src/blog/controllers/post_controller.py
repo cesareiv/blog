@@ -81,12 +81,14 @@ def save_post(request_body):
         pass
     return new_post
 
-def get_posts_by_status(status):
+def get_posts_by_status(statuses):
     posts = []
-    post_ids = db.smembers("post:status:%s" % status)
-    for post_id in post_ids:
-        post = get_post(post_id)
-        posts.append(post)
+    for status in statuses:
+        post_ids = db.smembers("post:status:%s" % status)
+        for post_id in post_ids:
+            post = get_post(post_id)
+            posts.append(post)
+            pass
         pass
     return posts
 
@@ -101,6 +103,20 @@ def get_posts_by_tags(tags):
         pass
         
     return posts
+
+def get_all():
+    posts = []
+    post_ids = []
+    allowed_vals = ["published", "draft", "private"]
+    for status in allowed_vals:
+        post_ids += list(db.smembers("post:status:%s" % status))
+        pass
+    for post_id in post_ids:
+        post = get_post(post_id)
+        posts.append(post)
+        pass
+    return posts
+
 
 def _is_empty(e):
     if e:
