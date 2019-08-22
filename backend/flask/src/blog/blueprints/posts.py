@@ -74,4 +74,12 @@ def get_post_collection():
     
     return jsonify(res), 200
     
-    return
+
+@posts_bp.route("/posts/<int:post_id>", methods=['DELETE'])
+def delete_post(post_id):
+    res = pc.delete_post(post_id)
+    if res == 1:
+        return jsonify({"message":"post deleted"}), 200
+    else:
+        abort(404)
+        

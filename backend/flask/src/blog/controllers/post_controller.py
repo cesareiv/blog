@@ -60,10 +60,11 @@ def save_post(request_body):
 
             pipe.multi()
             pipe.hmset("post:id:%s" % new_post.id, {
-                'title'   : str(new_post.title),
-                'body'    : str(new_post.body),
-                'status'  : str(new_post.status),
-                'id'      : str(new_post.id)
+                'title'      : str(new_post.title),
+                'body'       : str(new_post.body),
+                'status'     : str(new_post.status),
+                'id'         : str(new_post.id),
+                'created_at' : str(int(time.time()))
             })
 
             pipe.sadd("post:status:%s" % new_post.status, new_post.id)
