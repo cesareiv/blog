@@ -4,40 +4,37 @@ import styles from './NewPostForm.module.css';
 export const NewPostForm = props => {
     return( 
         <div>
-            <span className="blog_form">
+            <span className={styles.post_form}>
                 <form onSubmit = {(e) => {
                     e.preventDefault();
                     props.createPost(props.post); 
                 }}>
-                    <div>
-                        <label htmlFor="title">Post title:</label>
-                        <input
-                            className={styles.blog_input}
-                            name="title"
-                            title="title"
-                            value={props.post.title}
-                            onChange={props.handleChange}
-                        />
-                    </div>    
-                    <div>    
+				<span className={styles.title}>
+                    <label className={styles.label} htmlFor="title">Post title:</label>
+                    <input
+                        className={styles.input}
+                        name="title"
+                        title="title"
+                        value={props.post.title}
+                        onChange={props.handleChange}
+                    />
+				</span>			
                         <textarea
-                            className="blog_form_body"
+                            className={styles.textarea}
                             name="body"
                             title="body"
                             value={props.post.body}
-                            onChange={props.handleChange}    
-                        ></textarea>
-                    </div>    
-                    <div>    
-                        <label htmlFor="tags">tags:</label>    
+                            onChange={props.handleChange}
+                        ></textarea>    
+                        <label className={styles.label} htmlFor="tags">tags: </label> 
                         <input
-                            className="blog_input"
+                            className={styles.tags}
                             name="tags"
                             value={props.post.tags}
                             onChange={props.handleChange}
                         />
                         <select
-                            className="blog_form_status" 
+                            className={styles.select} 
                             name="status"
                             value={props.post.status}
                             onChange={props.handleChange}
@@ -45,9 +42,8 @@ export const NewPostForm = props => {
                             <option value="draft">draft</option>
                             <option value="published">published</option>
                             <option value="private">private</option>
-                        </select>    
-                    </div>    
-                    <button className="button" type="submit">Save post</button>
+                        </select>       
+                    <button className={styles.button} type="submit">Save post</button>
                 </form>    
             </span>
         </div>
