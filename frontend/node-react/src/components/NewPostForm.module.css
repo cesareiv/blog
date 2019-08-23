@@ -1,38 +1,47 @@
 .post_form {
-    text-align: center;
+    width: 600px;
+    border: 1px #f7f6f4 solid;
     border-radius: 5px;
     background-color: rgb(252,252,252);
-    margin: auto; 
-    border: 1px #f7f6f4 solid;
-    font-size: 1em;
-    width: 600px;
     -webkit-box-shadow: 0px 10px 10px rgba(0,0,0,0.8);  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
     -moz-box-shadow:    0px 1px 10px rgba(0,0,0,0.8);  /* Firefox 3.5 - 3.6 */
     box-shadow:         0px 15px 10px rgba(0,0,0,0.8);
-    display: flex;
-    align-items: left;
-    margin-bottom: 10px;
-    justify-content: center; 
-}	
-.label {
-	border: 1px solid black;
-	width: 50%;
-	align: center;
+    margin-bottom: 20px;
+    padding: 10px;
+    
 }
 
-.title {
-	border: 1px solid black;
-	display: flex;
-	align-items: center;
+.header {
+    display: flex;
+    align-items: center;
+    padding-bottom: 10px;
+    
+}
+
+.main_content {
+    display: flex;
+}
+
+.footer {
+    display: flex;
+    align-items: center;
+    padding-top: 10px;
+
+}
+.label {
+    padding-right: 5px;
+}
+
+.title_label {
+    composes: label;
+}
+
+.tags_label {
+    composes: label;
+    font-size: .8em;
 }
 
 .input {
-	width: 50%;
-	margin-left: 10px;
-	margin-right: 10px;
-	padding:6px;
-	text-align: left;
-	font-size: 1em;
 	box-shadow: none;
 	border: none;
 	border-radius: 25px;
@@ -42,22 +51,39 @@
 	box-shadow:         0px 3px 5px rgba(0,0,0,0.2);
 }
 
+.title_input {
+    composes: input;
+    flex: 1;
+}
+
+.tags_input {
+    composes: input;
+    flex: 2;
+    
+}
+
 .textarea {
-	width: 98%;
-	height: 200px;
-	border: 4px solid #cccccc;
+	height: 300px;
+    flex: 1;
 	resize: none;
+    padding: 10px;
+    border: none;
+    border-radius:25px;
+	-webkit-box-shadow: 0px 8px 8px rgba(0,0,0,0.8);  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+	-moz-box-shadow:    0px 8px 8px rgba(0,0,0,0.8);  /* Firefox 3.5 - 3.6 */
+	box-shadow:         0px 3px 5px rgba(0,0,0,0.2);
+}
+
+.select {
+    flex: 1;
+    color: green;
+    margin: 1%;
 }
 
 .button {
+    flex: 1;
 	background: #f6f7f8;
 	border: 1px solid #cdced0;
 	border-radius: 2px;
 	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
-}
-
-.button-depressed {
-	background: #4e69a2;
-	border-color: #c6c7ca;
-	color: #5890ff;
 }

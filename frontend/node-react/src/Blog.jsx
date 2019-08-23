@@ -4,6 +4,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { NewPostForm } from '../src/components/NewPostForm.jsx';
 import { Post } from '../src/components/Post.jsx';
+import styles from './Blog.module.css'
 
 export const Blog = props => {
 
@@ -132,29 +133,66 @@ export const Blog = props => {
         //textInput.current.focus();
     }
     
+    const getTags = (posts) => {
+        let tag_set = new Set();
+        for (const post of posts){
+            for (const tag of post.tags) {
+                tag_set.add(tag);
+            }
+
+        };
+        return Array.from(tag_set);
+    }
+    
     return(
         <div>
-            <h1>Your blog</h1>
-            
-            <div className="blog">
-                <NewPostForm 
-                    createPost={createPost}
-                    handleChange={handleChange}
-                    post={newPost}
-                />
-                {posts.map((post) => (
-                    <li key={post.id}>
-                        <Post 
-                            id={post.id}
-                            title={post.title}
-                            body={post.body}
-                            tags={post.tags}
-                            status={post.status}
-                            deletePost={deletePost}
-                        />    
-                    </li>
-                ))}
+            <div>
+                <ul className={styles.nav}>
+                    <li className={styles.nav_li}>blog by 2003</li>
+                    <li className={styles.nav_li}>new post</li>
+                    <li className={styles.nav_li}>search</li>                                    
+                </ul>
             </div>
-        </div>
+            <div className={styles.main}>
+                <div className={styles.blog}>
+                    <NewPostForm 
+                        createPost={createPost}
+                        handleChange={handleChange}
+                        post={newPost}
+                    />
+                    {posts.map((post) => (
+                        <li key={post.id}>
+                            <Post 
+                                id={post.id}
+                                title={post.title}
+                                body={post.body}
+                                tags={post.tags}
+                                status={post.status}
+                                deletePost={deletePost}
+                            />    
+                        </li>
+                    ))}
+                </div>
+                <div className={styles.sidebar}>
+                    <div className={styles.sidebar_a}>
+                    <p>recent posts</p>
+                    {posts.map((post) => (
+                        <li className={styles.titles_li} key={post.id}>
+                            <p>{post.title}</p>
+                        </li>
+                    ))}
+                    
+                    </div>
+                    <div className={styles.sidebar_b}><p>Tags</p>
+                        {getTags(posts).map((tag) => 
+                            <li className={styles.tags_li}>
+                                <p>{tag}</p>
+                            </li>
+                        )}
+                    </div>
+                </div>
+            </div>
+            
+        </div>        
     );
 };

@@ -5,13 +5,11 @@ export const Post = props => {
     return( 
         <div>
 		<span className={styles.post}>
-            <h1 className={styles.h1}>{props.title}</h1>
-            <p>{props.body}</p>
-            <p>{props.status}</p>
-            <p>tags: {props.tags.join(", ")}</p>
-            <span className="todo_check">   
-                <button className="circle cross" onClick={() => props.deletePost(props.id)}></button>
-            </span>
+            <h1 className={styles.title}>{props.title}</h1>
+            <p className={styles.post_body}>{props.body}</p>
+            <p className={styles.tags}>tags: {props.tags.join(", ")}</p>
+            <p className={styles.status}>{props.status}</p>
+            <button className="delete" onClick={() => props.deletePost(props.id)}>Delete post</button>
 		</span>
         </div>
     )
