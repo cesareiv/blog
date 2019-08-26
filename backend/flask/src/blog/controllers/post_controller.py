@@ -9,8 +9,19 @@ from blog.db.redis import RedisDB
 db = RedisDB().conn
 WatchError = exceptions.WatchError
 
-def delete_post(post_id):
-    """delete a post - returns 1 if post was found and deleted"""
+def delete_post(post_id:int) -> bool:
+    """Delete a post by ID.
+    
+    Args:
+        post_id (int) : The id of the post.
+    
+    Returns:
+        bool : ``True`` if deleted, ``False`` if not.
+    
+    >>> from post_controller import delete_post
+    >>> delete_post(123)    
+    """
+    
     post = get_post(post_id)
     pipe = db.pipeline()
     pipe.delete("%s%s" % ("post:id:", post_id))
@@ -23,7 +34,10 @@ def delete_post(post_id):
         pass
     
     res = pipe.execute()
-    return res[0] # value of initial hash delete
+    if res[0]:
+        return False
+    else:
+        return True
 
 def get_post(post_id):
     """get a post"""
