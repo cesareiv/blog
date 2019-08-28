@@ -140,7 +140,7 @@ def get_posts_by_status(statuses:list) -> List[Post]:
     return posts
 
 
-def get_posts_by_tags(tags):
+def get_by_tags(tags):
     posts = []
     for tag in tags:
         post_ids = db.smembers("tags:%s" % tag)

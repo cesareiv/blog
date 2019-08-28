@@ -2,8 +2,9 @@ import React from 'react';
 import styles from './NewPostForm.module.css';
 
 export const NewPostForm = props => {
-  return( 
-    <div className={styles.post_form}>
+  return(
+    <div className={styles.modal_overlay}>
+      <div className={styles.post_form}>
       <form onSubmit = {(e) => {
         e.preventDefault();
         props.createPost(props.post);
@@ -47,8 +48,11 @@ export const NewPostForm = props => {
             <option value="private">private</option>
           </select>
           <button className={styles.button} type="submit">Save post</button>
+          <button className={styles.button} onClick={props.toggle}>Cancel</button>
         </div>
       </form>
     </div>
+  </div> 
+    
   )
 }

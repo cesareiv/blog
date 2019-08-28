@@ -1,4 +1,4 @@
-.nav {
+.nav_ul {
     display: flex;
     list-style-type: none;
 }
@@ -7,12 +7,20 @@
     flex: 1;
 }
 
+.nav_li:hover {
+    color: white;
+}
+
 .main {
     display: flex;
 }
 
 .blog {
+    
+}
 
+.summary {
+    display: flex;
 }
 
 .sidebar {
@@ -44,8 +52,18 @@
     flex-basis: 40%;
 }
 
+.ul {
+    list-style-type: none;
+    margin: 5px;
+    padding: 0;
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+  }
+
 .li {
     list-style-type: none;
+    margin: 10px;
 }
 
 .titles_li {
@@ -55,3 +73,4 @@
 .tags_li {
     composes: li;
 }
+

@@ -4,10 +4,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { NewPostForm } from '../src/components/NewPostForm.jsx';
 import { Post } from '../src/components/Post.jsx';
+import { PostSummary } from '../src/components/PostSummary.jsx';
 import styles from './Blog.module.css'
 
 export const Blog = props => {
-
+  let [create, setCreate] = useState(false);
   let [posts,setPosts] = useState([]);
   let [newPost,setNewPost] =  useState({
     title  : '',
@@ -88,6 +89,7 @@ export const Blog = props => {
         body  : '',
         tags  : ''
       });
+      setCreate(false);
       getPosts();
       //textInput.current.focus();
         
@@ -145,35 +147,60 @@ export const Blog = props => {
       };
       return Array.from( tag_set );
     }
+
+    const toggleNewPostForm = () => {
+        setCreate(create === false ? true : false);
+    }
     
     return(
       <div>
-        <div>
-          <ul className={styles.nav}>
+        <div className={styles.nav}>
+          <ul className={styles.nav_ul}>
             <li className={styles.nav_li}>blog by 2003</li>
-            <li className={styles.nav_li}>new post</li>
+            <li className={styles.nav_li} onClick={toggleNewPostForm}>new post</li>
             <li className={styles.nav_li}>search</li>                                    
           </ul>
         </div>
+        
         <div className={styles.main}>
-          <div className={styles.blog}>
+          {
+            create === true &&
             <NewPostForm 
-              createPost={createPost}
-              handleChange={handleChange}
-              post={newPost}
-            />
+                createPost={createPost}
+                handleChange={handleChange}
+                post={newPost}
+                toggle={toggleNewPostForm}
+          />
+          }
+          <div className={styles.blog}>
+            <div className={styles.summary}>
+              <ul className={styles.ul}>
+                {posts.map((post) => (
+                  <li className={styles.li} key={post.id}>
+                    <PostSummary 
+                      id={post.id}
+                      title={post.title}
+                      body={post.body}
+                      tags={post.tags}
+                      status={post.status}
+                      deletePost={deletePost}
+                    />    
+                  </li>
+                ))}
+              </ul>
+            </div>  
             {posts.map((post) => (
-              <li key={post.id}>
-                <Post 
-                  id={post.id}
-                  title={post.title}
-                  body={post.body}
-                  tags={post.tags}
-                  status={post.status}
-                  deletePost={deletePost}
-                />    
-              </li>
-            ))}
+                <li className={styles.li} key={post.id}>
+                  <Post 
+                    id={post.id}
+                    title={post.title}
+                    body={post.body}
+                    tags={post.tags}
+                    status={post.status}
+                    deletePost={deletePost}
+                  />    
+                </li>
+              ))}  
         </div>
         <div className={styles.sidebar}>
           <div className={styles.sidebar_a}>
