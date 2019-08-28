@@ -1,7 +1,9 @@
 import datetime
 import time
 import redis
+from typing import List
 from redis import exceptions
+
 
 from blog.models import Post, Tag
 from blog.db.redis import RedisDB
@@ -16,10 +18,8 @@ def delete_post(post_id:int) -> bool:
         post_id (int) : The id of the post.
     
     Returns:
-        bool : ``True`` if deleted, ``False`` if not.
-    
-    >>> from post_controller import delete_post
-    >>> delete_post(123)    
+        bool : ``True`` if deleted, ``False`` if not.    
+
     """
     
     post = get_post(post_id)
@@ -35,12 +35,23 @@ def delete_post(post_id:int) -> bool:
     
     res = pipe.execute()
     if res[0]:
-        return False
-    else:
         return True
+    else:
+        return False
 
-def get_post(post_id):
-    """get a post"""
+    
+def get_post(post_id:int) -> Post:
+    """Get a post by ID.
+
+    Args:
+        post_id (int) : The id of the post.
+
+    Returns:
+        Post : a Post object
+
+    """
+
+    # retrieve post data from database
     post_hash = db.hgetall("post:id:%s" % post_id)
 
     if not _is_empty(post_hash):
@@ -54,11 +65,19 @@ def get_post(post_id):
         return Post.from_dict(post_hash)
     else:
         return None
-    pass
+    
 
-def save_post(request_body):
-    """save a post"""
-    new_post = Post.from_dict(request_body)
+def save_post(post_dict:dict) -> Post:
+    """save a post
+
+    Args:
+        post_dict (dict) : A dictionary representing the post to be saved
+
+    Returns:
+        Post : the newly saved post as a Post object
+    
+    """
+    new_post = Post.from_dict(post_dict)
     
     # we want saving a post to be an atmomic operation
     pipe = db.pipeline()
@@ -67,6 +86,7 @@ def save_post(request_body):
     while time.time() < timeout:
         try: 
             pipe.watch("post_id_counter")
+            
             # create unique post ID if None provided
             if new_post.id is None:
                 new_post.id = pipe.incrby("post_id_counter", 1)
@@ -96,7 +116,19 @@ def save_post(request_body):
         pass
     return new_post
 
-def get_posts_by_status(statuses):
+
+def get_posts_by_status(statuses:list) -> List[Post]:
+    """
+    Get all posts by status.
+
+    Arguments:
+        statuses (list) : a list of strings representing possible post statuses
+
+    Returns:
+        list[Posts] : a list of the posts that match the status(es) provided 
+
+    """
+    
     posts = []
     for status in statuses:
         post_ids = db.smembers("post:status:%s" % status)
@@ -106,6 +138,7 @@ def get_posts_by_status(statuses):
             pass
         pass
     return posts
+
 
 def get_posts_by_tags(tags):
     posts = []
@@ -118,6 +151,7 @@ def get_posts_by_tags(tags):
         pass
         
     return posts
+
 
 def get_all():
     posts = []
