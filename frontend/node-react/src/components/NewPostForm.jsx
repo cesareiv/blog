@@ -1,4 +1,5 @@
 import React from 'react';
+import { ImgUploader } from './ImgUploader.jsx';
 import styles from './NewPostForm.module.css';
 
 export const NewPostForm = props => {
@@ -7,7 +8,7 @@ export const NewPostForm = props => {
       <div className={styles.post_form}>
       <form onSubmit = {(e) => {
         e.preventDefault();
-        props.createPost(props.post);
+        props.createPost(props.post, props.imgUrl);
       }}>
         <div className={styles.header}>
           <label className={styles.title_label} htmlFor="title">title</label>
@@ -49,8 +50,16 @@ export const NewPostForm = props => {
           </select>
           <button className={styles.button} type="submit">Save post</button>
           <button className={styles.button} onClick={props.toggle}>Cancel</button>
+        
         </div>
+
       </form>
+      <ImgUploader 
+              title="image uploader"
+              name="images"
+              value={props.imgUrl}
+              changeImgUrl={props.changeImgUrl}
+            />
     </div>
   </div> 
     

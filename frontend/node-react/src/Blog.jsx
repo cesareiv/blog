@@ -16,6 +16,7 @@ export const Blog = props => {
     tags   : '',
     status : 'draft'
   });
+  let [imgUrl,setImgUrl] = useState("");
   //let [selected,setSelected] = useState(0);
   //const textInput = useRef(null);
     
@@ -31,6 +32,10 @@ export const Blog = props => {
     setNewPost(newPost => ({ ...newPost, [event.target.name] : event.target.value }));
   };
 
+  const changeImgUrl = (url) => {
+    setImgUrl(url);
+  }
+
   /*const selectPost = (event, id) => {
       event.preventDefault();
       let index = post.findIndex(post => post.id === id);
@@ -42,7 +47,6 @@ export const Blog = props => {
   async function getPosts() {
     const response = await fetch('http://localhost/api/v1/posts');
     const body = await response.json();
-    console.log(body);
     if (response.status !== 200) {
       throw Error(body.message)
     }
@@ -51,7 +55,8 @@ export const Blog = props => {
   };
   
   // Formats the payload for POST/PUT request
-  const formatPayload = (post) => {
+  const formatPayload = (post, url) => {
+
     let tag_array = [];
     let tag_string = post.tags;
     let tags = tag_string.split(" ");
@@ -59,20 +64,22 @@ export const Blog = props => {
     for (const tag of tags){
       tag_array.push({ 'title':tag })
     };
+
+    console.log(url);
     
     return JSON.stringify({
-      'title'  : post.title,
-      'body'   : post.body,
-      'status' : post.status,
-      'tags'   : tag_array
+      'title'   : post.title,
+      'body'    : post.body,
+      'status'  : post.status,
+      'tags'    : tag_array,
+      'img_url' : url
     });
   };  
     
   // POST a blog post to server
-  async function createPost(post) {
+  async function createPost(post, url) {
     if (post.title.length > 0) {
-      let payload = formatPayload( post );
-      //let payload = JSON.stringify(post);
+      let payload = formatPayload( post, url );
       const response = await fetch('http://localhost/api/v1/posts', {
         method: 'POST',
         headers: {
@@ -89,6 +96,7 @@ export const Blog = props => {
         body  : '',
         tags  : ''
       });
+      setImgUrl('');
       setCreate(false);
       getPosts();
       //textInput.current.focus();
@@ -136,7 +144,7 @@ export const Blog = props => {
         //textInput.current.focus();
     }
     
-    // getTags() removes duplicate tags from the tag set
+    // util function getTags() removes duplicate tags from the tag set
     const getTags = (posts) => {
       let tag_set = new Set();
       for ( const post of posts ) {
@@ -169,7 +177,9 @@ export const Blog = props => {
                 createPost={createPost}
                 handleChange={handleChange}
                 post={newPost}
+                imgUrl={imgUrl}
                 toggle={toggleNewPostForm}
+                changeImgUrl={changeImgUrl}
           />
           }
           <div className={styles.blog}>
@@ -183,6 +193,7 @@ export const Blog = props => {
                       body={post.body}
                       tags={post.tags}
                       status={post.status}
+                      imgUrl={post.img_url}
                       deletePost={deletePost}
                     />    
                   </li>

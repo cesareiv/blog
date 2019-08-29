@@ -8,22 +8,25 @@ from blog.models.tag import Tag
 class Post():
 
     def __init__(self, id: int=None, title: str="untitled",
-                 body: str=None, tags: List[Tag]=None, status: str="draft"):
+                 body: str=None, tags: List[Tag]=None, status: str="draft",
+                 img_url: str=""):
 
         self.data_types = {
-            'id'     : int,
-            'title'  : str,
-            'body'   : str,
-            'tags'   : List[Tag],
-            'status' : str
+            'id'      : int,
+            'title'   : str,
+            'body'    : str,
+            'tags'    : List[Tag],
+            'status'  : str,
+            'img_url' : str
         }
 
         self.attribute_map = {
-            'id'     : 'id',
-            'title'  : 'title',
-            'body'   : 'body',
-            'tags'   : 'tags',
-            'status' : 'status'
+            'id'      : 'id',
+            'title'   : 'title',
+            'body'    : 'body',
+            'tags'    : 'tags',
+            'status'  : 'status',
+            'img_url' : 'img_url'
         }
 
         
@@ -32,6 +35,7 @@ class Post():
         self._body = body
         self._tags = tags
         self._status = status
+        self._img_url = img_url
 
         pass
 
@@ -46,11 +50,12 @@ class Post():
         for tag in self.tags:
             tags.append(tag.title)
         return {
-            'id'     : self.id,
-            'title'  : self.title,
-            'body'   : self.body,
-            'tags'   : tags,
-            'status' : self.status
+            'id'      : self.id,
+            'title'   : self.title,
+            'body'    : self.body,
+            'tags'    : tags,
+            'status'  : self.status,
+            'img_url' : self.img_url
         }
     
     @property
@@ -125,3 +130,16 @@ class Post():
             )
 
         self._status = status
+    
+    @property
+    def img_url(self) -> str:
+        """Gets the image url of this Post"""
+
+        return self._img_url
+
+    @img_url.setter
+    def img_url(self, img_url: str):
+        """Sets the imgage url of this Post"""
+
+        self._img_url = img_url
+    

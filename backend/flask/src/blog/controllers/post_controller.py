@@ -97,6 +97,7 @@ def save_post(post_dict:dict) -> Post:
                 'title'      : str(new_post.title),
                 'body'       : str(new_post.body),
                 'status'     : str(new_post.status),
+                'img_url'    : str(new_post.img_url),
                 'id'         : str(new_post.id),
                 'created_at' : str(int(time.time()))
             })
