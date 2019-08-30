@@ -50,16 +50,13 @@ export const NewPostForm = props => {
           </select>
           <button className={styles.button} type="submit">Save post</button>
           <button className={styles.button} onClick={props.toggle}>Cancel</button>
-        
         </div>
-
       </form>
       <ImgUploader 
-              title="image uploader"
-              name="images"
-              value={props.imgUrl}
-              changeImgUrl={props.changeImgUrl}
-            />
+        name="images"
+        value={props.imgUrl}
+        changeImgUrl={props.changeImgUrl}
+      />
     </div>
   </div> 
     

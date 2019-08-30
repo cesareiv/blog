@@ -42,6 +42,7 @@
     display: flex;
     align-items: center;
     padding-top: 10px;
+    padding-bottom: 10px;
 
 }
 .label {
@@ -100,6 +101,14 @@
     flex: 1;
 	background: #f6f7f8;
 	border: 1px solid #cdced0;
-	border-radius: 2px;
-	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+	
+}
+
+.button:last-child {
+    border-left: none;
+}
+
+.button:hover {
+    background: #b0b1b1;
+    
 }

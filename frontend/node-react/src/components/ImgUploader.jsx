@@ -1,24 +1,15 @@
 import React from 'react';
+import styles from './ImgUploader.module.css';
 
 export class ImgUploader extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = { 
-            selectedFile: null, 
             loaded: 0, 
             imgUrl: ""
         }
-
-        this.handleSelectedFile = this.handleSelectedFile.bind(this);
         this.uploadImage = this.uploadImage.bind(this);
-    }
-
-    handleSelectedFile(event) {
-        this.setState({
-            selectedFile: event.target.files[0],
-            loaded: 0
-        })
     }
 
     async uploadImage(event) {
@@ -26,8 +17,8 @@ export class ImgUploader extends React.Component {
         let data = new FormData();           
         try {
             data.append('file',
-                this.state.selectedFile,
-                this.state.selectedFile.name
+                event.target.files[0],
+                event.target.name
             );
             const response = await fetch('http://localhost/api/v1/images', {
                 method: 'POST',
@@ -50,17 +41,23 @@ export class ImgUploader extends React.Component {
 
     render() {
         return (
-            <div className="">
+            <div className={styles.main}>
                 <form onSubmit={this.uploadImage}>
-                    <label htmlFor={this.props.name} className="">{this.props.title}</label>
+                    <label htmlFor={this.props.name} className={styles.file}>
+                      Upload an image
+                    
                     <input type="file"
-                        name={this.props.name}
-                        onChange={this.handleSelectedFile}
-                        accept="image/jpeg, image/jpg, image/png"
-                    />
-                    <button className="">Upload</button>
+
+                          name={this.props.name}
+                          onChange={this.uploadImage}
+                          accept="image/jpeg, image/jpg, image/png"
+                      />
+                    </label>
                 </form>
-                <div> {Math.round(this.state.loaded, 2)} %</div>
+                <div className={styles.thumb}>
+                  <img className={styles.img} src={this.state.imgUrl} />
+                </div>
+                {/*<div> {Math.round(this.state.loaded, 2)} %</div>*/}
             </div>
         )
     }

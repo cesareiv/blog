@@ -1,0 +1,52 @@
+.main {
+    
+    border: 1px solid black;
+    display: flex;
+    padding: 10px;
+    align-content: flex-end;
+    
+
+}
+
+.file { 
+    overflow: hidden;
+    position: relative;
+    background: #f6f7f8;
+    border: 1px solid #cdced0;
+    border-radius: 2px;
+    padding: .5em;
+    cursor: pointer;
+    flex: 3;
+ 
+}
+
+.file:hover {
+    background: #b8b8b8;
+}
+
+.file [type=file] {
+    
+    display: block;
+    font-size: 999px;
+    
+    min-height: 100%;
+    min-width: 100%;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    text-align: right;
+    top: 0;
+}
+.thumb {
+    
+}
+
+.img {
+    width: 50px;
+}
+
+.button {
+    background: #f6f7f8;
+    border: 1px solid #cdced0;
+	
+}

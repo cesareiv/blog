@@ -6,12 +6,13 @@ const linkStyle = {
 }
 
 export const PostSummary = props => {
-  console.log(props.imgUrl);
   return(
     <div className={styles.post}>
+        {props.imgUrl !== "" &&
         <div className={styles.thumbnail}>
           <img className={styles.img} src={props.imgUrl} />
         </div>
+        }
         <div className={styles.content}>
           <h1 className={styles.title}>{props.title}</h1>
           <p className={styles.post_body}>{props.body}</p>
