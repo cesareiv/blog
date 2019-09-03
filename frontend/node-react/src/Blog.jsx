@@ -17,7 +17,8 @@ export const Blog = props => {
     status : 'draft'
   });
   let [imgUrl,setImgUrl] = useState("");
-  //let [selected,setSelected] = useState(0);
+  let [selectedPost, setSelectedPost] = useState(0);
+
   //const textInput = useRef(null);
     
   useEffect(
@@ -36,12 +37,14 @@ export const Blog = props => {
     setImgUrl(url);
   }
 
-  /*const selectPost = (event, id) => {
+  const selectPost = (event, postId) => {
       event.preventDefault();
-      let index = post.findIndex(post => post.id === id);
-      setSelected(id);
-      setNewPost(post[index].title);
-  }*/
+      setSelectedPost(postId);
+      let index = posts.findIndex(post => post.id === postId);
+      setNewPost(posts[index]);
+      setImgUrl(posts[index].img_url)
+      setCreate(create === false ? true : true);
+  }
 
   // Fetches our GET /posts route from the Flask server
   async function getPosts() {
@@ -64,8 +67,6 @@ export const Blog = props => {
     for (const tag of tags){
       tag_array.push({ 'title':tag })
     };
-
-    console.log(url);
     
     return JSON.stringify({
       'title'   : post.title,
@@ -99,37 +100,41 @@ export const Blog = props => {
       setImgUrl('');
       setCreate(false);
       getPosts();
-      //textInput.current.focus();
+      
         
     }else {
-      //textInput.current.focus();
+      
       return;
     }
   };
-    /*
-    // UPDATE a post
-    async function updatePost(id, title) {
-        if (title.length > 0) {
-            let payload = JSON.stringify({'title':title});
-            const response = await fetch(`http://localhost/api/v1/todos/${id}`, {
-                method: 'PUT',
-                headers: {
-                    "Content-Type": "application/json; charset=utf-8",
-                },
-                body: payload
-            });
-            const body = await response;
-            if (response.status !==204) {
-                throw Error(body.message);
-            }
-            getTodos();       
-            setSelected(0);
-            setNewTodo("");
-            textInput.current.focus();        
-        }else {
-            return;
-        }
-    }*/
+
+  // UPDATE a post
+  async function updatePost(id, post, url) {
+      if (post.title.length > 0) {
+        let payload = formatPayload( post, url );
+          const response = await fetch(`http://localhost/api/v1/posts/${id}`, {
+              method: 'PUT',
+              headers: {
+                  "Content-Type": "application/json; charset=utf-8",
+              },
+              body: payload
+          });
+          const body = await response;
+          if (response.status !==200) {
+              throw Error(body.message);
+          }
+          setNewPost({
+            title : '',
+            body  : '',
+            tags  : ''
+          });
+          setImgUrl('');
+          setCreate(false);
+          getPosts();      
+      }else {
+          return;
+      }
+  }
 
     //DELETE a post
     async function deletePost( id ) {
@@ -157,6 +162,11 @@ export const Blog = props => {
     }
 
     const toggleNewPostForm = () => {
+        if (create === false){
+          setNewPost({});
+          setSelectedPost(0);
+          setImgUrl("");
+        }
         setCreate(create === false ? true : false);
     }
     
@@ -164,7 +174,7 @@ export const Blog = props => {
       <div>
         <div className={styles.nav}>
           <ul className={styles.nav_ul}>
-            <li className={styles.nav_li}>blog by 2003</li>
+            <li className={styles.nav_li_title}>blog by 2003</li>
             <li className={styles.nav_li} onClick={toggleNewPostForm}>new post</li>
             <li className={styles.nav_li}>search</li>                                    
           </ul>
@@ -175,7 +185,9 @@ export const Blog = props => {
             create === true &&
             <NewPostForm 
                 createPost={createPost}
+                updatePost={updatePost}
                 handleChange={handleChange}
+                selectedPost={selectedPost}
                 post={newPost}
                 imgUrl={imgUrl}
                 toggle={toggleNewPostForm}
@@ -188,6 +200,7 @@ export const Blog = props => {
                 {posts.map((post) => (
                   <li className={styles.li} key={post.id}>
                     <PostSummary 
+                      post={post}
                       id={post.id}
                       title={post.title}
                       body={post.body}
@@ -195,6 +208,7 @@ export const Blog = props => {
                       status={post.status}
                       imgUrl={post.img_url}
                       deletePost={deletePost}
+                      selectPost={selectPost}
                     />    
                   </li>
                 ))}
@@ -213,7 +227,7 @@ export const Blog = props => {
                 </li>
               ))}  
         </div>
-        <div className={styles.sidebar}>
+        {/* <div className={styles.sidebar}>
           <div className={styles.sidebar_a}>
           <p>recent posts</p>
           {posts.map((post) => (
@@ -229,7 +243,7 @@ export const Blog = props => {
               </li>
             )}
           </div>
-        </div>
+        </div> */}
       </div>
     </div>        
   );

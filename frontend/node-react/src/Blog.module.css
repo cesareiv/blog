@@ -1,10 +1,28 @@
+.nav {
+    border-bottom: 1px solid black;
+    margin-bottom: 10px;
+    background-color: rgb(214, 216, 218);
+}
+
 .nav_ul {
     display: flex;
     list-style-type: none;
+    align-items: stretch;
+    margin: 0;
+    
 }
 
 .nav_li {
-    flex: 1;
+    flex: 3;
+    flex-basis: 20%;
+    text-align: left;
+    border-right: 1px solid black;
+    padding: 10px;
+}
+
+.nav_li_title {
+    composes: nav_li;
+    flex: 1
 }
 
 .nav_li:hover {

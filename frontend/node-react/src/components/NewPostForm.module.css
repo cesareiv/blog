@@ -36,6 +36,7 @@
 
 .main_content {
     display: flex;
+    justify-content: space-evenly; 
 }
 
 .footer {
@@ -81,7 +82,7 @@
 
 .textarea {
 	height: 300px;
-    flex: 1;
+    width: 70%;
 	resize: none;
     padding: 10px;
     border: none;
@@ -99,8 +100,9 @@
 
 .button {
     flex: 1;
-	background: #f6f7f8;
-	border: 1px solid #cdced0;
+    background: #f6f7f8;
+    border: 3px solid #cdced0;
+    
 	
 }
 

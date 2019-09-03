@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './PostSummary.module.css';
 
 const linkStyle = {
@@ -6,6 +6,21 @@ const linkStyle = {
 }
 
 export const PostSummary = props => {
+
+  let [status, setStatus] = useState(props.status);
+  let [editToggle, setEditToggle] = useState(false);
+
+  const handleStatusUpdate = val => {
+    
+    console.log("new status!");
+    return;
+  }
+
+  const toggleEdit = (event) => {
+    setEditToggle(editToggle === false ? true : false);
+    props.selectPost(event, props.post.id);
+  }
+
   return(
     <div className={styles.post}>
         {props.imgUrl !== "" &&
@@ -30,11 +45,29 @@ export const PostSummary = props => {
             </ul>
           </div>
           <div className={styles.status}>
+            
             <span className={styles.status_text}>
-              {props.status}
+              {/* {editToggle === true &&
+                <form onSubmit={handleStatusUpdate}>
+                <select
+                  onChange={handleStatusUpdate(status)} 
+                  value={status}
+                  name="status"  
+                  
+                >
+                  <option value="edit">edit</option>
+                  <option value="delete">delete</option>
+                </select>
+              </form>
+              } */}
+              
+              <a onClick={toggleEdit}>
+              {status}
+              </a>
+            
             </span>
           </div>
         </div>
-    </div>
+      </div>
   )
 }

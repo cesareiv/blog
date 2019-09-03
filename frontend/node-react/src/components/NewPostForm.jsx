@@ -3,19 +3,25 @@ import { ImgUploader } from './ImgUploader.jsx';
 import styles from './NewPostForm.module.css';
 
 export const NewPostForm = props => {
+
+
+
   return(
     <div className={styles.modal_overlay}>
       <div className={styles.post_form}>
       <form onSubmit = {(e) => {
         e.preventDefault();
-        props.createPost(props.post, props.imgUrl);
+        if (props.selectedPost == 0) {
+          props.createPost(props.post, props.imgUrl);
+        } else {
+          props.updatePost(props.selectedPost, props.post, props.imgUrl)
+        };  
       }}>
         <div className={styles.header}>
-          <label className={styles.title_label} htmlFor="title">title</label>
+          <label className={styles.title_label} htmlFor="title">Title</label>
             <input
                 className={styles.title_input}
                 name="title"
-                title="title"
                 value={props.post.title}
                 onChange={props.handleChange}
             />
@@ -29,6 +35,11 @@ export const NewPostForm = props => {
             onChange={props.handleChange}
             placeholder="write some stuff here..."
           />
+          <ImgUploader 
+           name="images"
+            value={props.imgUrl}
+            changeImgUrl={props.changeImgUrl}
+           />
         </div>
         <div className={styles.footer}>
           <label className={styles.tags_label} htmlFor="tags">tags</label>
@@ -52,11 +63,6 @@ export const NewPostForm = props => {
           <button className={styles.button} onClick={props.toggle}>Cancel</button>
         </div>
       </form>
-      <ImgUploader 
-        name="images"
-        value={props.imgUrl}
-        changeImgUrl={props.changeImgUrl}
-      />
     </div>
   </div> 
     

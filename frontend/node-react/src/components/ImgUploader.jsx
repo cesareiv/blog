@@ -7,9 +7,10 @@ export class ImgUploader extends React.Component {
 
         this.state = { 
             loaded: 0, 
-            imgUrl: ""
-        }
+            imgUrl: this.props.value
+        };
         this.uploadImage = this.uploadImage.bind(this);
+        this.fileInput = React.createRef();
     }
 
     async uploadImage(event) {
@@ -42,21 +43,37 @@ export class ImgUploader extends React.Component {
     render() {
         return (
             <div className={styles.main}>
-                <form onSubmit={this.uploadImage}>
-                    <label htmlFor={this.props.name} className={styles.file}>
-                      Upload an image
-                    
+                {/* <form onSubmit={this.uploadImage}>
+                     */}
                     <input type="file"
-
-                          name={this.props.name}
-                          onChange={this.uploadImage}
-                          accept="image/jpeg, image/jpg, image/png"
+                        id={this.props.name}
+                        className={styles.file}
+                        ref={this.fileInput}
+                        name={this.props.name}
+                        onChange={this.uploadImage}
+                        accept="image/jpeg, image/jpg, image/png"
                       />
+                    <label className={styles.container} htmlFor={this.props.name} >
+                    Add an image...
                     </label>
-                </form>
+                    
+                
+                    {/* <input type="file"
+                        className={styles.file}
+                        ref={this.fileInput}
+                        name={this.props.name}
+                        onChange={this.uploadImage}
+                        accept="image/jpeg, image/jpg, image/png"
+                      />
+                      <div className={styles.fakefile}>
+                          Add an image
+                      </div> */}
+
+
+                {/* </form> */}
                 <div className={styles.thumb}>
                   <img className={styles.img} src={this.state.imgUrl} />
-                </div>
+                    </div>
                 {/*<div> {Math.round(this.state.loaded, 2)} %</div>*/}
             </div>
         )
