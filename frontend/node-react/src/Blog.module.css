@@ -31,11 +31,11 @@
 
 
 .main {
-    display: flex;
+
 }
 
 .blog {
-    
+    margin: auto; 
 }
 
 .summary {

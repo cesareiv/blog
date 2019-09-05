@@ -1,8 +1,9 @@
 .post {
   display: flex;
+  margin:auto auto 20px auto;
   flex-direction: column;
   align-items: left;
-  width: 600px;
+  width: 700px;
   border-radius: 5px;
   font-size: 1.2em;
   background-color: white;

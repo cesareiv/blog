@@ -1,0 +1,9 @@
+.main {
+    display: flex;
+    flex-direction: column; 
+}
+
+.ul {
+    list-style-type: none;
+    padding: 0;
+}

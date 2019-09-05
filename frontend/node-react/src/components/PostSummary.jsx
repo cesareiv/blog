@@ -9,7 +9,6 @@ export const PostSummary = props => {
   
   let [editToggle, setEditToggle] = useState(false);
 
-
   const toggleEdit = (event) => {
     setEditToggle(editToggle === false ? true : false);
     props.selectPost(event, props.post.id);

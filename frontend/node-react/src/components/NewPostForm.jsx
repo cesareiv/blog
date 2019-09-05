@@ -4,8 +4,6 @@ import styles from './NewPostForm.module.css';
 
 export const NewPostForm = props => {
 
-
-
   return(
     <div className={styles.modal_overlay}>
       <div className={styles.post_form}>

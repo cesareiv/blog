@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Post } from './Post.jsx';
-
+import styles from './PublicView.module.css'
 
 export const PublicView = (props) => {
 
@@ -17,6 +17,7 @@ export const PublicView = (props) => {
   );
 
   // Fetches our GET /posts route from the Flask server
+  // We could use filtering of all posts with JS, but I wanted to implement using arguments in the URI
   async function getPosts() {
     const response = await fetch('http://localhost/api/v1/posts?status=published');
     const body = await response.json();
@@ -28,18 +29,22 @@ export const PublicView = (props) => {
   };
 
   return (
-    <div>
-      {posts.map((post) => (
-                <li key={post.id}>
-                  <Post 
-                    id={post.id}
-                    title={post.title}
-                    body={post.body}
-                    tags={post.tags}
-                    status={post.status}
-                  />    
-                </li>
-              ))}
+    <div className={styles.main}>
+      <ul className={styles.ul}>
+          {posts.map((post) => (
+            <li key={post.id}>
+              <Post 
+                id={post.id}
+                title={post.title}
+                body={post.body}
+                tags={post.tags}
+                status={post.status}
+                imgUrl={post.img_url}
+              />    
+            </li>
+        ))}
+      </ul>
+      
     </div>
   )
 

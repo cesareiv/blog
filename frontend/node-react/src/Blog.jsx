@@ -2,9 +2,10 @@
 //GNU PUBLIC LICENSE 3.0
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { NewPostForm } from '../src/components/NewPostForm.jsx';
 import { PostSummary } from '../src/components/PostSummary.jsx';
+import { PublicView } from '../src/components/PublicView.jsx';
 import styles from './Blog.module.css'
 
 export const Blog = props => {
@@ -36,7 +37,6 @@ export const Blog = props => {
   const changeImgUrl = (url) => {
     setImgUrl(url);
   }
-
 
   const selectPost = (event, postId) => {
       event.preventDefault();
@@ -106,9 +106,7 @@ export const Blog = props => {
       setCreate(false);
       getPosts();
       
-        
     }else {
-      
       return;
     }
   };
@@ -166,6 +164,7 @@ export const Blog = props => {
       return Array.from( tag_set );
     }
 
+    // pull up the new post form, clearing it if it is for new post
     const toggleNewPostForm = () => {
         if (create === false){
           setNewPost({});
@@ -175,18 +174,19 @@ export const Blog = props => {
         setCreate(create === false ? true : false);
     }
 
-
-    
     return(
-      <div>
-        <div className={styles.nav}>
-          <ul className={styles.nav_ul}>
-            <Link to="/"><li className={styles.nav_li_title}>blog by 2003</li></Link>
-            <li className={styles.nav_li} onClick={toggleNewPostForm}>new post</li>
-            <li className={styles.nav_li}>search</li>                                    
-          </ul>
+      <Router>
+        <div>
+          <div className={styles.nav}>
+            <ul className={styles.nav_ul}>
+              <li className={styles.nav_li_title}><Link to="/">blog by 2003</Link></li>
+              <li className={styles.nav_li} onClick={toggleNewPostForm}>new post</li>
+              <li className={styles.nav_li}><Link to="/preview">preview</Link></li>
+            </ul>
+          </div>        
         </div>
         <div className={styles.main}>
+        <div className={styles.blog}>
           {
             create === true &&
             <NewPostForm 
@@ -199,31 +199,43 @@ export const Blog = props => {
                 imgUrl={imgUrl}
                 toggle={toggleNewPostForm}
                 changeImgUrl={changeImgUrl}
-          />
-          }
-          <div className={styles.blog}>
-            <div className={styles.summary}>
-              <ul className={styles.ul}>
-                {posts.map((post) => (
-                  <li className={styles.li} key={post.id}>
-                    <PostSummary
-                      getPosts={getPosts} 
-                      post={post}
-                      id={post.id}
-                      title={post.title}
-                      body={post.body}
-                      tags={post.tags}
-                      status={post.status}
-                      imgUrl={post.img_url}
-                      deletePost={deletePost}
-                      selectPost={selectPost}
-                    />    
-                  </li>
-                ))}
-              </ul>
-            </div>  
-        </div>
-        {/* <div className={styles.sidebar}>
+            />
+            }    
+          <Route exact path="/" render={ () => (
+              <div className={styles.summary}>
+                <ul className={styles.ul}>
+                  {posts.map((post) => (
+                    <li className={styles.li} key={post.id}>
+                      <PostSummary
+                        getPosts={getPosts} 
+                        post={post}
+                        id={post.id}
+                        title={post.title}
+                        body={post.body}
+                        tags={post.tags}
+                        status={post.status}
+                        imgUrl={post.img_url}
+                        deletePost={deletePost}
+                        selectPost={selectPost}
+                      />    
+                    </li>
+                  ))}
+                </ul>
+              </div>  
+            
+            
+          ) }/>
+          <Route path="/preview" component={PublicView} />
+          </div>
+          </div>
+      </Router>
+  );
+};
+
+
+
+
+ {/* <div className={styles.sidebar}>
           <div className={styles.sidebar_a}>
           <p>recent posts</p>
           {posts.map((post) => (
@@ -240,7 +252,3 @@ export const Blog = props => {
             )}
           </div>
         </div> */}
-      </div>
-    </div>        
-  );
-};
