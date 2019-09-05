@@ -2,8 +2,8 @@
 //GNU PUBLIC LICENSE 3.0
 
 import React, { useState, useEffect, useRef } from 'react';
+import { Link } from "react-router-dom";
 import { NewPostForm } from '../src/components/NewPostForm.jsx';
-import { Post } from '../src/components/Post.jsx';
 import { PostSummary } from '../src/components/PostSummary.jsx';
 import styles from './Blog.module.css'
 
@@ -181,7 +181,7 @@ export const Blog = props => {
       <div>
         <div className={styles.nav}>
           <ul className={styles.nav_ul}>
-            <li className={styles.nav_li_title}>blog by 2003</li>
+            <Link to="/"><li className={styles.nav_li_title}>blog by 2003</li></Link>
             <li className={styles.nav_li} onClick={toggleNewPostForm}>new post</li>
             <li className={styles.nav_li}>search</li>                                    
           </ul>
@@ -222,18 +222,6 @@ export const Blog = props => {
                 ))}
               </ul>
             </div>  
-            {/* {posts.map((post) => (
-                <li className={styles.li} key={post.id}>
-                  <Post 
-                    id={post.id}
-                    title={post.title}
-                    body={post.body}
-                    tags={post.tags}
-                    status={post.status}
-                    deletePost={deletePost}
-                  />    
-                </li>
-              ))}   */}
         </div>
         {/* <div className={styles.sidebar}>
           <div className={styles.sidebar_a}>

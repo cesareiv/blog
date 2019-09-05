@@ -116,7 +116,7 @@ def save_post(post_dict:dict) -> Post:
 
 
 
-def get_posts_by_status(statuses:list) -> List[Post]:
+def get_by_status(statuses:list) -> List[Post]:
     """
     Get all posts by status.
 

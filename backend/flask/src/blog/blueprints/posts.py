@@ -1,5 +1,3 @@
-#
-
 """
 Flask Blue print for Posts 
 """
@@ -27,12 +25,6 @@ posts_bp = Blueprint('posts_bp',
                      __name__,
                      template_folder='templates',
                      url_prefix='/api/v1')
-
-@posts_bp.route("/hello", methods=['GET'])
-def hello():
-    log.debug("Servicing HELLO WORLD")
-    return "HELLO WORLD"
-
 
 #############
 #/posts #
@@ -65,12 +57,15 @@ def update_post(post_id):
 @posts_bp.route("/posts", methods=['GET'])
 def get_post_collection():
     log.debug("Servicing get post collection API")
-    #args = request.args
-    
-    #allowed_args = ['tags', 'status']
     posts = []
-    posts = pc.get_all()
-    #posts= pc.get_by_tags([args.get(k) for k in args])
+    if request.args:
+        allowed_args = ['tags', 'status']
+        #tags = request.args.getlist('tags')
+        #posts = pc.get_by_tags(tags)
+        status = request.args.getlist('status')
+        posts = pc.get_by_status(status)
+    else:
+        posts = pc.get_all()
     res = []
     for post in posts:
         res.append(post.as_dict())
