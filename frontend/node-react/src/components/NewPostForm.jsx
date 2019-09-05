@@ -63,6 +63,12 @@ export const NewPostForm = props => {
           <button className={styles.button} onClick={props.toggle}>Cancel</button>
         </div>
       </form>
+      {props.selectedPost !=0 && 
+          <button className={styles.button} onClick={() => {
+            props.deletePost(props.post.id);
+            props.toggle();
+          }
+      }>Delete</button>}
     </div>
   </div> 
     

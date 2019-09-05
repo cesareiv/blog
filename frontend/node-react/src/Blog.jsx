@@ -42,7 +42,9 @@ export const Blog = props => {
       event.preventDefault();
       setSelectedPost(postId);
       let index = posts.findIndex(post => post.id === postId);
-      setNewPost(posts[index]);
+      let postCopy = Object.assign({}, posts[index]);
+      postCopy.tags = postCopy.tags.toString().replace(/,/g, " ");
+      setNewPost(postCopy);
       setImgUrl(posts[index].img_url)
       setCreate(create === false ? true : true);
   }
@@ -63,10 +65,12 @@ export const Blog = props => {
 
     let tag_array = [];
     let tag_string = post.tags;
-    let tags = tag_string.split(" ");
+    let tags = tag_string.split(/,|\s/g);
     
     for (const tag of tags){
-      tag_array.push({ 'title':tag })
+      if ( tag != '' ) {
+        tag_array.push({ 'title':tag });
+      }
     };
     
     return JSON.stringify({
@@ -188,6 +192,7 @@ export const Blog = props => {
             <NewPostForm 
                 createPost={createPost}
                 updatePost={updatePost}
+                deletePost={deletePost}
                 handleChange={handleChange}
                 selectedPost={selectedPost}
                 post={newPost}
@@ -217,7 +222,7 @@ export const Blog = props => {
                 ))}
               </ul>
             </div>  
-            {posts.map((post) => (
+            {/* {posts.map((post) => (
                 <li className={styles.li} key={post.id}>
                   <Post 
                     id={post.id}
@@ -228,7 +233,7 @@ export const Blog = props => {
                     deletePost={deletePost}
                   />    
                 </li>
-              ))}  
+              ))}   */}
         </div>
         {/* <div className={styles.sidebar}>
           <div className={styles.sidebar_a}>

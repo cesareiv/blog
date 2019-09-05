@@ -6,15 +6,9 @@ const linkStyle = {
 }
 
 export const PostSummary = props => {
-
-  let [status, setStatus] = useState(props.status);
+  
   let [editToggle, setEditToggle] = useState(false);
 
-  const handleStatusUpdate = val => {
-    
-    console.log("new status!");
-    return;
-  }
 
   const toggleEdit = (event) => {
     setEditToggle(editToggle === false ? true : false);
@@ -43,7 +37,6 @@ export const PostSummary = props => {
             <ul className={styles.ul}>
               {props.tags.map((tag) => (
                 <a style={linkStyle} href={`http://localhost/api/v1/posts?tags=${tag}`}>
-               
                   <li className={styles.tag_li}>
                     {tag}
                   </li>
@@ -51,27 +44,9 @@ export const PostSummary = props => {
               ))}
             </ul>
           </div>
-          <div className={styles.status}>
-            
-            <span className={styles.status_text}>
-              {/* {editToggle === true &&
-                <form onSubmit={handleStatusUpdate}>
-                <select
-                  onChange={handleStatusUpdate(status)} 
-                  value={status}
-                  name="status"  
-                  
-                >
-                  <option value="edit">edit</option>
-                  <option value="delete">delete</option>
-                </select>
-              </form>
-              } */}
-              
-              <a onClick={toggleEdit}>
-              {status}
-              </a>
-            
+          <div className={styles.status} onClick={toggleEdit} >
+            <span className={styles.status_text} aria-required="true" aria-label="click to edit post">              
+              {props.status}
             </span>
           </div>
         </div>

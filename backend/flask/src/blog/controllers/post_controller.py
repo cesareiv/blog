@@ -4,10 +4,11 @@ import redis
 from typing import List
 from redis import exceptions
 
-
+from blog.log import Log
 from blog.models import Post, Tag
 from blog.db.redis import RedisDB
 
+log = Log()
 db = RedisDB().conn
 WatchError = exceptions.WatchError
 
@@ -81,44 +82,38 @@ def save_post(post_dict:dict) -> Post:
     
     # we want saving a post to be an atmomic operation
     pipe = db.pipeline()
-
-    timeout = time.time() + 10 
-    while time.time() < timeout:
-        try: 
-            pipe.watch("post_id_counter")
-            
-            # create unique post ID if None provided
-            if new_post.id is None:
-                new_post.id = pipe.incrby("post_id_counter", 1)
-                pass
-
-            pipe.multi()
-            pipe.hmset("post:id:%s" % new_post.id, {
-                'title'      : str(new_post.title),
-                'body'       : str(new_post.body),
-                'status'     : str(new_post.status),
-                'img_url'    : str(new_post.img_url),
-                'id'         : str(new_post.id),
-                'created_at' : str(int(time.time()))
-            })
-
-            for status in ['draft','published','private']:
-                pipe.delete("post:status:%s:%s" % (new_post.id, status))
-
-            pipe.sadd("post:status:%s" % new_post.status, new_post.id) 
-            
-            if new_post.tags is not None:
-                for tag in new_post.tags: 
-                    pipe.sadd("post:id:%s:tags" % new_post.id, tag.title)
-                    pipe.sadd("tags:%s" % tag.title, new_post.id)
-                    pass
-                pass
-            pipe.execute()
-            break
-        except WatchError:
-            continue
+    pipe.watch("post_id_conuter")
+    # create unique post ID if None provided, if provided, delete old post and overwrite
+    if new_post.id is None:
+        new_post.id = pipe.incrby("post_id_counter", 1)
         pass
-    return new_post
+    else:
+        delete_post(new_post.id)
+        pass
+
+    pipe.multi()
+    pipe.hmset("post:id:%s" % new_post.id, {
+        'title'      : str(new_post.title),
+        'body'       : str(new_post.body),
+        'status'     : str(new_post.status),
+        'img_url'    : str(new_post.img_url),
+        'id'         : str(new_post.id),
+        'created_at' : str(int(time.time()))
+    })
+    
+    pipe.sadd("post:status:%s" % new_post.status, new_post.id) 
+    
+    if new_post.tags is not None:
+        for tag in new_post.tags: 
+            pipe.sadd("post:id:%s:tags" % new_post.id, tag.title)
+            pipe.sadd("tags:%s" % tag.title, new_post.id)
+            pass
+        pass
+    pipe.execute()
+        
+    return get_post(new_post.id)
+
+
 
 
 def get_posts_by_status(statuses:list) -> List[Post]:
