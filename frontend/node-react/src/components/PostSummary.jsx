@@ -21,6 +21,12 @@ export const PostSummary = props => {
     props.selectPost(event, props.post.id);
   }
 
+  const tagButton = (tag) => {
+    return (
+      <a onClick={props.getPosts(tag)} />
+    );
+  }
+
   return(
     <div className={styles.post}>
         {props.imgUrl !== "" &&
@@ -36,7 +42,8 @@ export const PostSummary = props => {
           <div className={styles.tags}>
             <ul className={styles.ul}>
               {props.tags.map((tag) => (
-                <a style={linkStyle} href={`http://localhost/posts/?tags=${tag}`}>
+                <a style={linkStyle} href={`http://localhost/api/v1/posts?tags=${tag}`}>
+               
                   <li className={styles.tag_li}>
                     {tag}
                   </li>

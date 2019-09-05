@@ -37,6 +37,7 @@ export const Blog = props => {
     setImgUrl(url);
   }
 
+
   const selectPost = (event, postId) => {
       event.preventDefault();
       setSelectedPost(postId);
@@ -169,6 +170,8 @@ export const Blog = props => {
         }
         setCreate(create === false ? true : false);
     }
+
+
     
     return(
       <div>
@@ -179,7 +182,6 @@ export const Blog = props => {
             <li className={styles.nav_li}>search</li>                                    
           </ul>
         </div>
-        
         <div className={styles.main}>
           {
             create === true &&
@@ -199,7 +201,8 @@ export const Blog = props => {
               <ul className={styles.ul}>
                 {posts.map((post) => (
                   <li className={styles.li} key={post.id}>
-                    <PostSummary 
+                    <PostSummary
+                      getPosts={getPosts} 
                       post={post}
                       id={post.id}
                       title={post.title}

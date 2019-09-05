@@ -65,15 +65,12 @@ def update_post(post_id):
 @posts_bp.route("/posts", methods=['GET'])
 def get_post_collection():
     log.debug("Servicing get post collection API")
-    args = request.args
-    allowed_args = ['tags', 'status']
+    #args = request.args
+    
+    #allowed_args = ['tags', 'status']
     posts = []
-    if is_empty(args):
-        posts = pc.get_all()
-        pass
-    else:
-        log.debug(args)
-        posts= pc.get_by_tags([args.get(k) for k in args])
+    posts = pc.get_all()
+    #posts= pc.get_by_tags([args.get(k) for k in args])
     res = []
     for post in posts:
         res.append(post.as_dict())

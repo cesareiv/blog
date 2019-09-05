@@ -68,7 +68,7 @@ def get_post(post_id:int) -> Post:
     
 
 def save_post(post_dict:dict) -> Post:
-    """save a post
+    """Save or update post.
 
     Args:
         post_dict (dict) : A dictionary representing the post to be saved
@@ -102,7 +102,10 @@ def save_post(post_dict:dict) -> Post:
                 'created_at' : str(int(time.time()))
             })
 
-            pipe.sadd("post:status:%s" % new_post.status, new_post.id)
+            for status in ['draft','published','private']:
+                pipe.delete("post:status:%s:%s" % (new_post.id, status))
+
+            pipe.sadd("post:status:%s" % new_post.status, new_post.id) 
             
             if new_post.tags is not None:
                 for tag in new_post.tags: 
