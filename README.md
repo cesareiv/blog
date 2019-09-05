@@ -1,5 +1,5 @@
 # Blog by 2003
-A simple CRUD todo webapp using Node.js, Python Flask and Docker containers. React JS frontend, Flask backend and Redis for persistent storage. Circle CI integration for testing.
+A simple CRUD blog webapp with microservice architecture using Node.js, Python Flask and Docker containers. React JS frontend, Flask backend and Redis for persistent storage. Circle CI integration for testing.
 
 ## Getting Started
 You will need Docker Desktop installed to run this app. Defaults to a development enviornment. Visit https://www.docker.com/ to get started there.
@@ -17,17 +17,17 @@ You will need Docker Desktop installed to run this app. Defaults to a developmen
 ## To access the front end web content
 * http://localhost
 
-## To Run tests (Mocha)
+## To Run tests (pytest)
 ```bash
 ./compose.sh test
 ```
 
 ## To use
-Add a post clicking "new post" in navbar
-<br>Edit/Delete a post from the dash by clicking the post status label and using the modal window
-<br>View published posts by clicking "Preview"
-<br>View posts by tag by clicking a tag chiclet
-<br>Datastore is persistent
+Add a post by clicking "new post" in navbar and bringing up modal.
+<br>Edit/Delete a post from the dash by clicking the post status label and using the modal window.
+<br>View published posts by clicking "Preview".
+<br>View posts by tag by clicking a tag chiclet.
+<br>Datastore is persistent.
 
 ## Authors
 
