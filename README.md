@@ -1,5 +1,5 @@
 # Blog by 2003
-A simple CRUD blog webapp with microservice architecture using Node.js, Python Flask and Docker containers. React JS frontend, Flask backend and Redis for persistent storage. Circle CI integration for testing.
+A simple CRUD blog webapp with containerized microservice architecture using Node.js, Python Flask and Docker. React JS frontend, Flask backend and Redis for persistent storage. Uses React Router and CSS Modules (thanks to create-react-app). Minimal CSS. Very lighweight! Circle CI integration for testing.
 
 ## Getting Started
 You will need Docker Desktop installed to run this app. Defaults to a development enviornment. Visit https://www.docker.com/ to get started there.

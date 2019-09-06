@@ -16,6 +16,7 @@
 }
 
 .thumbnail {
+    justify-content: center;
     display: flex;
     width: 270px;
     height: 179px;
@@ -23,9 +24,7 @@
     margin: 15px 15px 0 15px;
     border-radius: 5px;
     background-color: white;
-    -webkit-box-shadow: 0px 8px 8px rgba(0,0,0,0.8);  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
-    -moz-box-shadow:    0px 8px 8px rgba(0,0,0,0.8);  /* Firefox 3.5 - 3.6 */
-    box-shadow:         0px 3px 5px rgba(0,0,0,0.2);
+
 }
 
 .img {
@@ -52,7 +51,6 @@
   overflow: hidden;
   max-height: 200px;
 }
-
 
 .footer {
   background-color: rgb(241,246,250);

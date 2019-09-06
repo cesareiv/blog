@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Post } from './Post.jsx';
 import styles from './PublicView.module.css'
 
-export const PublicView = (props) => {
+export const Search = (props) => {
 
   let [posts,setPosts] = useState([]);
   let [selectedPost, setSelectedPost] = useState(0);
@@ -11,15 +11,14 @@ export const PublicView = (props) => {
     
   useEffect(
     () => {
-      getPosts();
-      //textInput.current.focus();
+      getPostsByTag(props.location.search);
     },[]
   );
 
   // Fetches our GET /posts route from the Flask server
   // We could use filtering of all posts with JS, but I wanted to implement using arguments in the URI
-  async function getPosts() {
-    const response = await fetch('http://localhost/api/v1/posts?status=published');
+  async function getPostsByTag(tag) {
+    const response = await fetch(`http://localhost/api/v1/posts${tag}`);
     const body = await response.json();
     if (response.status !== 200) {
       throw Error(body.message)
@@ -48,5 +47,3 @@ export const PublicView = (props) => {
     </div>
   )
 }
-
-  

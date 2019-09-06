@@ -3,9 +3,11 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { NavBar } from '../src/components/NavBar.jsx';
 import { NewPostForm } from '../src/components/NewPostForm.jsx';
 import { PostSummary } from '../src/components/PostSummary.jsx';
 import { PublicView } from '../src/components/PublicView.jsx';
+import { Search } from '../src/components/Search.jsx';
 import styles from './Blog.module.css'
 
 export const Blog = props => {
@@ -176,17 +178,14 @@ export const Blog = props => {
         setCreate(create === false ? true : false);
     }
 
+    const linkStyle = {
+      textDecoration: 'none'
+    }
     return(
       <Router>
-        <div>
-          <div className={styles.nav}>
-            <ul className={styles.nav_ul}>
-              <li className={styles.nav_li_title}><Link to="/">blog by 2003</Link></li>
-              <li className={styles.nav_li} onClick={toggleNewPostForm}>new post</li>
-              <li className={styles.nav_li}><Link to="/preview">preview</Link></li>
-            </ul>
-          </div>        
-        </div>
+
+          <NavBar toggleNewPostForm={toggleNewPostForm} />
+
         <div className={styles.main}>
           <div className={styles.blog}>
             {
@@ -204,7 +203,6 @@ export const Blog = props => {
               />
             }    
             <Route exact path="/" render={ () => (
-
                   <ul className={styles.ul}>
                     {posts.map((post) => (
                       <li className={styles.li} key={post.id}>
@@ -223,10 +221,10 @@ export const Blog = props => {
                       </li>
                     ))}
                   </ul>
-
               ) 
             }/>
             <Route path="/preview" component={PublicView} />
+            <Route path="/search" component={Search} />
           </div>
         </div>
       </Router>

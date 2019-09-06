@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import styles from './PostSummary.module.css';
 
 const linkStyle = {
@@ -35,11 +36,16 @@ export const PostSummary = props => {
           <div className={styles.tags}>
             <ul className={styles.ul}>
               {props.tags.map((tag) => (
-                <a style={linkStyle} href={`http://localhost/api/v1/posts?tags=${tag}`}>
-                  <li className={styles.tag_li}>
-                    {tag}
-                  </li>
-                </a>
+
+                  <Link style={linkStyle} to={{
+                    pathname:"/search",
+                    search:`?tags=${tag}`
+                  }}>
+                    <li className={styles.tag_li}>
+                      {tag}
+                    </li>
+                  </Link>
+
               ))}
             </ul>
           </div>

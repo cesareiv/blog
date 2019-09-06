@@ -60,10 +60,13 @@ def get_post_collection():
     posts = []
     if request.args:
         allowed_args = ['tags', 'status']
-        #tags = request.args.getlist('tags')
-        #posts = pc.get_by_tags(tags)
-        status = request.args.getlist('status')
-        posts = pc.get_by_status(status)
+        if 'tags' in request.args:
+            tags = request.args.getlist('tags')
+            posts = pc.get_by_tags(tags)
+        elif 'status' in request.args:
+            status = request.args.getlist('status')
+            posts = pc.get_by_status(status)
+        pass
     else:
         posts = pc.get_all()
     res = []
