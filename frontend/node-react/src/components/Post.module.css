@@ -13,13 +13,16 @@
 }
 
 .title {
+  font-family: 'Merriweather', serif;
+  text-align: center;
   font-size: 1.5em;
-  margin-left: 1%;
 }
 
 .post_body {
+  font-family: 'Open Sans', sans-serif;
+  text-align: justify;
   font-size: .8em;
-  margin: 0 0 3% 3%;
+  margin: 5%;
 }
 
 .tags {
@@ -32,4 +35,10 @@
   margin-right: 10%;
   font-size: .5em;
   font-style: italic;
+}
+
+.img {
+  height: 300px;
+  width: 400px;
+  margin: auto;
 }
