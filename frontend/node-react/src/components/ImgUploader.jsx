@@ -54,7 +54,7 @@ export class ImgUploader extends React.Component {
                         accept="image/jpeg, image/jpg, image/png"
                       />
                     <label className={styles.container} htmlFor={this.props.name} >
-                    Add an image...
+                    Add / Update image...
                     </label>
                     
                 

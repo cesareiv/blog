@@ -106,11 +106,17 @@
 	
 }
 
-.button:last-child {
-    border-left: none;
+.button:first-of-type {
+    border-right: none;
 }
 
 .button:hover {
     background: #b0b1b1;
     
+}
+
+.delete {
+    composes: button;
+    margin-left: 5px; 
+    color: red;
 }

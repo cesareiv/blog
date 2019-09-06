@@ -79,6 +79,8 @@ def save_post(post_dict:dict) -> Post:
     
     """
     new_post = Post.from_dict(post_dict)
+    updated_at = int(time.time())
+    created_at = db.hget("post:id:%s" % new_post.id, 'created_at')
     
     # we want saving a post to be an atmomic operation
     pipe = db.pipeline()
@@ -86,6 +88,7 @@ def save_post(post_dict:dict) -> Post:
     # create unique post ID if None provided, if provided, delete old post and overwrite
     if new_post.id is None:
         new_post.id = pipe.incrby("post_id_counter", 1)
+        created_at = updated_at
         pass
     else:
         delete_post(new_post.id)
@@ -98,7 +101,8 @@ def save_post(post_dict:dict) -> Post:
         'status'     : str(new_post.status),
         'img_url'    : str(new_post.img_url),
         'id'         : str(new_post.id),
-        'created_at' : str(int(time.time()))
+        'created_at' : str(created_at),
+        'updated_at' : str(updated_at)
     })
     
     pipe.sadd("post:status:%s" % new_post.status, new_post.id) 

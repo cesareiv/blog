@@ -47,9 +47,12 @@
 .post_body {
   font-family: 'Open Sans', sans-serif;
   text-align: justify;
-  font-size: .8em;
+  font-size: .75em;
   margin: 5%;
+  overflow: hidden;
+  max-height: 200px;
 }
+
 
 .footer {
   background-color: rgb(241,246,250);
@@ -61,6 +64,7 @@
 .tags {
   font-size: .7em;
   flex: 3;
+  min-height: 37px;
 }
 
 .a {

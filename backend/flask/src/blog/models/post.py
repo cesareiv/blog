@@ -7,34 +7,40 @@ from blog.models.tag import Tag
 
 class Post():
 
-    def __init__(self, id: int=None, title: str="untitled",
-                 body: str=None, tags: List[Tag]=None, status: str="draft",
-                 img_url: str=""):
+    def __init__(self, id: int=None, title: str="untitled", body: str=None,
+                 tags: List[Tag]=None, status: str="draft", created_at: int=None,
+                 updated_at: int=None, img_url: str=""):
 
         self.data_types = {
-            'id'      : int,
-            'title'   : str,
-            'body'    : str,
-            'tags'    : List[Tag],
-            'status'  : str,
-            'img_url' : str
+            'id'         : int,
+            'title'      : str,
+            'body'       : str,
+            'tags'       : List[Tag],
+            'status'     : str,
+            'created_at' : int,
+            'updated_at' : int,
+            'img_url'    : str
         }
 
         self.attribute_map = {
-            'id'      : 'id',
-            'title'   : 'title',
-            'body'    : 'body',
-            'tags'    : 'tags',
-            'status'  : 'status',
-            'img_url' : 'img_url'
+            'id'         : 'id',
+            'title'      : 'title',
+            'body'       : 'body',
+            'tags'       : 'tags',
+            'status'     : 'status',
+            'created_at' : 'created_at',
+            'updated_at' : 'updated_at',
+            'img_url'    : 'img_url'
         }
 
-        
+
         self._id = id
         self._title = title
         self._body = body
         self._tags = tags
         self._status = status
+        self._created_at = created_at
+        self._updated_at = updated_at
         self._img_url = img_url
 
         pass
@@ -50,14 +56,16 @@ class Post():
         for tag in self.tags:
             tags.append(tag.title)
         return {
-            'id'      : self.id,
-            'title'   : self.title,
-            'body'    : self.body,
-            'tags'    : tags,
-            'status'  : self.status,
-            'img_url' : self.img_url
+            'id'         : self.id,
+            'title'      : self.title,
+            'body'       : self.body,
+            'tags'       : tags,
+            'status'     : self.status,
+            'created_at' : self.created_at,
+            'updated_at' : self.updated_at,
+            'img_url'    : self.img_url
         }
-    
+
     @property
     def id(self) -> int:
         """get the id of the Post"""
@@ -130,7 +138,23 @@ class Post():
             )
 
         self._status = status
-    
+
+    @property
+    def created_at(self) -> int:
+        return self._created_at
+
+    @created_at.setter
+    def created_at(self, created_at: int):
+        self._created_at = created_at
+
+    @property
+    def updated_at(self) -> int:
+        return self._updated_at
+
+    @updated_at.setter
+    def updated_at(self, updated_at: int):
+        self._updated_at = updated_at
+
     @property
     def img_url(self) -> str:
         """Gets the image url of this Post"""
@@ -142,4 +166,3 @@ class Post():
         """Sets the imgage url of this Post"""
 
         self._img_url = img_url
-    

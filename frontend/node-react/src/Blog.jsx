@@ -62,17 +62,17 @@ export const Blog = props => {
   
   // Formats the payload for POST/PUT request
   const formatPayload = (post, url) => {
-
     let tag_array = [];
-    let tag_string = post.tags;
-    let tags = tag_string.split(/,|\s/g);
-    
-    for (const tag of tags){
-      if ( tag != '' ) {
-        tag_array.push({ 'title':tag });
-      }
+    if (post.tags) {
+      let tag_string = post.tags;
+      let tags = tag_string.split(/,|\s/g);
+      for (const tag of tags){
+        if ( tag != '' ) {
+          tag_array.push({ 'title':tag });
+        };
+      };    
     };
-    
+
     return JSON.stringify({
       'title'   : post.title,
       'body'    : post.body,
@@ -84,7 +84,6 @@ export const Blog = props => {
     
   // POST a blog post to server
   async function createPost(post, url) {
-    if (post.title.length > 0) {
       let payload = formatPayload( post, url );
       const response = await fetch('http://localhost/api/v1/posts', {
         method: 'POST',
@@ -100,15 +99,12 @@ export const Blog = props => {
       setNewPost({
         title : '',
         body  : '',
-        tags  : ''
+        tags  : '',
+        status : 'draft'
       });
       setImgUrl('');
       setCreate(false);
-      getPosts();
-      
-    }else {
-      return;
-    }
+      getPosts();  
   };
 
   // UPDATE a post
@@ -129,7 +125,8 @@ export const Blog = props => {
           setNewPost({
             title : '',
             body  : '',
-            tags  : ''
+            tags  : '',
+            status : 'draft'
           });
           setImgUrl('');
           setCreate(false);
@@ -167,7 +164,12 @@ export const Blog = props => {
     // pull up the new post form, clearing it if it is for new post
     const toggleNewPostForm = () => {
         if (create === false){
-          setNewPost({});
+          setNewPost({
+            title  : '',
+            body   : '',
+            tags   : '',
+            status : 'draft'
+          });
           setSelectedPost(0);
           setImgUrl("");
         }
@@ -202,7 +204,7 @@ export const Blog = props => {
               />
             }    
             <Route exact path="/" render={ () => (
-                <div className={styles.summary}>
+
                   <ul className={styles.ul}>
                     {posts.map((post) => (
                       <li className={styles.li} key={post.id}>
@@ -221,7 +223,7 @@ export const Blog = props => {
                       </li>
                     ))}
                   </ul>
-                </div>  
+
               ) 
             }/>
             <Route path="/preview" component={PublicView} />

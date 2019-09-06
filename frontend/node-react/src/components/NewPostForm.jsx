@@ -37,6 +37,7 @@ export const NewPostForm = props => {
            name="images"
             value={props.imgUrl}
             changeImgUrl={props.changeImgUrl}
+            selectedPost={props.selectedPost}
            />
         </div>
         <div className={styles.footer}>
@@ -59,14 +60,16 @@ export const NewPostForm = props => {
           </select>
           <button className={styles.button} type="submit">Save post</button>
           <button className={styles.button} onClick={props.toggle}>Cancel</button>
+          {props.selectedPost !=0 && 
+            <button className={styles.delete} onClick={() => {
+              props.deletePost(props.post.id);
+              props.toggle();
+              }
+              }>Delete
+            </button>
+          }
         </div>
       </form>
-      {props.selectedPost !=0 && 
-          <button className={styles.button} onClick={() => {
-            props.deletePost(props.post.id);
-            props.toggle();
-          }
-      }>Delete</button>}
     </div>
   </div> 
     
