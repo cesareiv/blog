@@ -8,7 +8,6 @@
   composes: dropshadow;
   display: flex;
   flex-direction: column;
-  width: 300px;
   border-radius: 5px;
   font-size: 1.2em;
   background-color: white;
@@ -18,10 +17,10 @@
 .thumbnail {
     justify-content: center;
     display: flex;
-    width: 270px;
-    height: 179px;
+    width: 90%;
+    padding-top: 10px;
     box-shadow: none;
-    margin: 15px 15px 0 15px;
+    margin: auto;
     border-radius: 5px;
     background-color: white;
 
@@ -48,8 +47,8 @@
   text-align: justify;
   font-size: .75em;
   margin: 5%;
-  overflow: hidden;
-  max-height: 200px;
+  //overflow: hidden;
+  //max-height: 200px;
 }
 
 .footer {

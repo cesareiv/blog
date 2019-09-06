@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './PostSummary.module.css';
 
@@ -55,6 +55,7 @@ export const PostSummary = props => {
             </span>
           </div>
         </div>
+
       </div>
   )
 }

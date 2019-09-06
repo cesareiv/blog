@@ -8,6 +8,7 @@ import { NewPostForm } from '../src/components/NewPostForm.jsx';
 import { PostSummary } from '../src/components/PostSummary.jsx';
 import { PublicView } from '../src/components/PublicView.jsx';
 import { Search } from '../src/components/Search.jsx';
+import { Footer } from '../src/components/Footer.jsx';
 import styles from './Blog.module.css'
 
 export const Blog = props => {
@@ -19,14 +20,15 @@ export const Blog = props => {
     tags   : '',
     status : 'draft'
   });
-  let [imgUrl,setImgUrl] = useState("");
+  let [imgUrl, setImgUrl] = useState("");
   let [selectedPost, setSelectedPost] = useState(0);
 
-  //const textInput = useRef(null);
+ 
     
   useEffect(
     () => {
       getPosts();
+
       //textInput.current.focus();
     },[]
   );
@@ -41,14 +43,14 @@ export const Blog = props => {
   }
 
   const selectPost = (event, postId) => {
-      event.preventDefault();
-      setSelectedPost(postId);
-      let index = posts.findIndex(post => post.id === postId);
-      let postCopy = Object.assign({}, posts[index]);
-      postCopy.tags = postCopy.tags.toString().replace(/,/g, " ");
-      setNewPost(postCopy);
-      setImgUrl(posts[index].img_url)
-      setCreate(create === false ? true : true);
+    event.preventDefault();
+    setSelectedPost(postId);
+    let index = posts.findIndex(post => post.id === postId);
+    let postCopy = Object.assign({}, posts[index]);
+    postCopy.tags = postCopy.tags.toString().replace(/,/g, " ");
+    setNewPost(postCopy);
+    setImgUrl(posts[index].img_url)
+    setCreate(create === false ? true : true);
   }
 
   // Fetches our GET /posts route from the Flask server
@@ -183,9 +185,7 @@ export const Blog = props => {
     }
     return(
       <Router>
-
-          <NavBar toggleNewPostForm={toggleNewPostForm} />
-
+        <NavBar toggleNewPostForm={toggleNewPostForm} />
         <div className={styles.main}>
           <div className={styles.blog}>
             {
@@ -203,28 +203,28 @@ export const Blog = props => {
               />
             }    
             <Route exact path="/" render={ () => (
-                  <ul className={styles.ul}>
-                    {posts.map((post) => (
-                      <li className={styles.li} key={post.id}>
-                        <PostSummary
-                          getPosts={getPosts} 
-                          post={post}
-                          id={post.id}
-                          title={post.title}
-                          body={post.body}
-                          tags={post.tags}
-                          status={post.status}
-                          imgUrl={post.img_url}
-                          deletePost={deletePost}
-                          selectPost={selectPost}
-                        />    
-                      </li>
-                    ))}
-                  </ul>
-              ) 
-            }/>
+              <ul className={styles.ul}>
+                {posts.map((post) => (
+                  <li className={styles.li} key={post.id}>
+                    <PostSummary
+                      getPosts={getPosts} 
+                      post={post}
+                      id={post.id}
+                      title={post.title}
+                      body={post.body}
+                      tags={post.tags}
+                      status={post.status}
+                      imgUrl={post.img_url}
+                      deletePost={deletePost}
+                      selectPost={selectPost}
+                    />    
+                  </li>
+                ))}
+              </ul>
+            )}/>
             <Route path="/preview" component={PublicView} />
             <Route path="/search" component={Search} />
+            <Footer />
           </div>
         </div>
       </Router>
