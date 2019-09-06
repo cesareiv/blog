@@ -186,48 +186,47 @@ export const Blog = props => {
           </div>        
         </div>
         <div className={styles.main}>
-        <div className={styles.blog}>
-          {
-            create === true &&
-            <NewPostForm 
-                createPost={createPost}
-                updatePost={updatePost}
-                deletePost={deletePost}
-                handleChange={handleChange}
-                selectedPost={selectedPost}
-                post={newPost}
-                imgUrl={imgUrl}
-                toggle={toggleNewPostForm}
-                changeImgUrl={changeImgUrl}
-            />
+          <div className={styles.blog}>
+            {
+              create === true &&
+              <NewPostForm 
+                  createPost={createPost}
+                  updatePost={updatePost}
+                  deletePost={deletePost}
+                  handleChange={handleChange}
+                  selectedPost={selectedPost}
+                  post={newPost}
+                  imgUrl={imgUrl}
+                  toggle={toggleNewPostForm}
+                  changeImgUrl={changeImgUrl}
+              />
             }    
-          <Route exact path="/" render={ () => (
-              <div className={styles.summary}>
-                <ul className={styles.ul}>
-                  {posts.map((post) => (
-                    <li className={styles.li} key={post.id}>
-                      <PostSummary
-                        getPosts={getPosts} 
-                        post={post}
-                        id={post.id}
-                        title={post.title}
-                        body={post.body}
-                        tags={post.tags}
-                        status={post.status}
-                        imgUrl={post.img_url}
-                        deletePost={deletePost}
-                        selectPost={selectPost}
-                      />    
-                    </li>
-                  ))}
-                </ul>
-              </div>  
-            
-            
-          ) }/>
-          <Route path="/preview" component={PublicView} />
+            <Route exact path="/" render={ () => (
+                <div className={styles.summary}>
+                  <ul className={styles.ul}>
+                    {posts.map((post) => (
+                      <li className={styles.li} key={post.id}>
+                        <PostSummary
+                          getPosts={getPosts} 
+                          post={post}
+                          id={post.id}
+                          title={post.title}
+                          body={post.body}
+                          tags={post.tags}
+                          status={post.status}
+                          imgUrl={post.img_url}
+                          deletePost={deletePost}
+                          selectPost={selectPost}
+                        />    
+                      </li>
+                    ))}
+                  </ul>
+                </div>  
+              ) 
+            }/>
+            <Route path="/preview" component={PublicView} />
           </div>
-          </div>
+        </div>
       </Router>
   );
 };
