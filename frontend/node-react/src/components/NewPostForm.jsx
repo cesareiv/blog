@@ -3,7 +3,6 @@ import { ImgUploader } from './ImgUploader.jsx';
 import styles from './NewPostForm.module.css';
 
 export const NewPostForm = props => {
-
   return(
     <div className={styles.modal_overlay}>
       <div className={styles.post_form}>
@@ -72,6 +71,5 @@ export const NewPostForm = props => {
       </form>
     </div>
   </div> 
-    
   )
 }
