@@ -113,7 +113,6 @@ export const Blog = props => {
 
   // UPDATE a post
   async function updatePost(id, post, url) {
-      if (post.title.length > 0) {
         let payload = formatPayload( post, url );
           const response = await fetch(`http://localhost/api/v1/posts/${id}`, {
               method: 'PUT',
@@ -135,9 +134,6 @@ export const Blog = props => {
           setImgUrl('');
           setCreate(false);
           getPosts();      
-      }else {
-          return;
-      }
   }
 
     //DELETE a post

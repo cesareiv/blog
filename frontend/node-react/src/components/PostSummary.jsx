@@ -21,7 +21,7 @@ export const PostSummary = props => {
     );
   }
 
-  return(
+  return (
     <div className={styles.post}>
         {props.imgUrl !== "" &&
         <div className={styles.thumbnail}>

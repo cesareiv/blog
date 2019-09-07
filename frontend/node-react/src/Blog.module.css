@@ -1,10 +1,16 @@
 .nav {
     border-bottom: 1px solid black;
+    text-transform: uppercase;
     background-color: rgb(214, 216, 218);
+    font-family: Courier;
+    min-width: 350px;
+ 
 }
 
 .nav_ul {
+    
     display: flex;
+    flex-wrap: wrap;
     list-style-type: none;
     align-items: stretch;
     margin: 0;
@@ -14,8 +20,9 @@
 .nav_li {
     flex: 3;
     flex-basis: 20%;
-    text-align: left;
+    text-align: center;
     border-right: 1px solid black;
+    border-top: 1px solid black; 
     padding: 10px;
 }
 
@@ -28,6 +35,17 @@
     color: white;
 }
 
+.navlink {
+    text-decoration: none;
+}
+
+.navlink:visited {
+    color: black;
+}
+
+.navlink:hover {
+    color: white;
+}
 
 .main {
 
@@ -74,19 +92,12 @@
     list-style-type: none;
     margin: 5px;
     padding: 0;
-    -webkit-column-count: 3;
-    -moz-column-count: 3;
-    column-count: 3;
-    -webkit-column-width: 150px;
-    -moz-column-width: 150px;
-    column-width: 150px;
-    -webkit-column-gap: .6em;
-    -moz-column-gap: .6em;
-         column-gap: .6em;
+    display: flex;
+    flex-wrap: wrap;
   }
 
 .li {
-    margin: 10px;
+    margin: 15px;
 }
 
 .titles_li {

@@ -8,6 +8,7 @@
   composes: dropshadow;
   display: flex;
   flex-direction: column;
+  width: 300px;
   border-radius: 5px;
   font-size: 1.2em;
   background-color: white;
@@ -17,10 +18,10 @@
 .thumbnail {
     justify-content: center;
     display: flex;
-    width: 90%;
-    padding-top: 10px;
+    width: 270px;
+    height: 179px;
     box-shadow: none;
-    margin: auto;
+    margin: 15px 15px 0 15px;
     border-radius: 5px;
     background-color: white;
 
@@ -39,7 +40,9 @@
 .title {
   font-family: 'Merriweather', serif;
   text-align: center;
-  font-size: 1.5em;
+  font-size: 1em;
+  height: 50px;
+  padding: 10px;
 }
 
 .post_body {
@@ -47,8 +50,8 @@
   text-align: justify;
   font-size: .75em;
   margin: 5%;
-  //overflow: hidden;
-  //max-height: 200px;
+  overflow: hidden;
+  height: 200px;
 }
 
 .footer {
