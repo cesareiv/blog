@@ -1,6 +1,4 @@
-#
-# Copyright 2018 - github.com/BNVwebdev
-#
+
 
 """
 Logger object
