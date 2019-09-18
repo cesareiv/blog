@@ -1,0 +1,18 @@
+version: '3'
+services:
+
+  node-react:
+    build:
+      context: node-react
+    image: blog/react
+    command: "test"
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./node-react/src:/app/blog-app/src:ro
+    networks:
+      - blog_app
+
+networks:
+  blog_app:
+    driver: bridge

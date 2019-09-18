@@ -9,7 +9,12 @@ import { PostSummary } from '../src/components/PostSummary.jsx';
 import { PublicView } from '../src/components/PublicView.jsx';
 import { Search } from '../src/components/Search.jsx';
 import { Footer } from '../src/components/Footer.jsx';
-import styles from './Blog.module.css'
+import styles from './Blog.module.css';
+
+export function sum(x,y) {
+  return x+y;
+};
+
 
 export const Blog = props => {
   let [create, setCreate] = useState(false);
@@ -23,8 +28,6 @@ export const Blog = props => {
   let [imgUrl, setImgUrl] = useState("");
   let [selectedPost, setSelectedPost] = useState(0);
 
- 
-    
   useEffect(
     () => {
       getPosts();
@@ -40,7 +43,7 @@ export const Blog = props => {
 
   const changeImgUrl = (url) => {
     setImgUrl(url);
-  }
+  };
 
   const selectPost = (event, postId) => {
     event.preventDefault();
@@ -51,7 +54,7 @@ export const Blog = props => {
     setNewPost(postCopy);
     setImgUrl(posts[index].img_url)
     setCreate(create === false ? true : true);
-  }
+  };
 
   // Fetches our GET /posts route from the Flask server
   async function getPosts() {
@@ -63,7 +66,7 @@ export const Blog = props => {
     setPosts(body);
     return body;
   };
-  
+
   // Formats the payload for POST/PUT request
   const formatPayload = (post, url) => {
     let tag_array = [];
@@ -74,7 +77,7 @@ export const Blog = props => {
         if ( tag != '' ) {
           tag_array.push({ 'title':tag });
         };
-      };    
+      };
     };
 
     return JSON.stringify({
@@ -84,8 +87,8 @@ export const Blog = props => {
       'tags'    : tag_array,
       'img_url' : url
     });
-  };  
-    
+  };
+
   // POST a blog post to server
   async function createPost(post, url) {
       let payload = formatPayload( post, url );
@@ -108,7 +111,7 @@ export const Blog = props => {
       });
       setImgUrl('');
       setCreate(false);
-      getPosts();  
+      getPosts();
   };
 
   // UPDATE a post
@@ -133,8 +136,8 @@ export const Blog = props => {
           });
           setImgUrl('');
           setCreate(false);
-          getPosts();      
-  }
+          getPosts();
+  };
 
     //DELETE a post
     async function deletePost( id ) {
@@ -147,8 +150,8 @@ export const Blog = props => {
         }
         getPosts();
         //textInput.current.focus();
-    }
-    
+    };
+
     // util function getTags() removes duplicate tags from the tag set
     const getTags = (posts) => {
       let tag_set = new Set();
@@ -159,7 +162,7 @@ export const Blog = props => {
 
       };
       return Array.from( tag_set );
-    }
+    };
 
     // pull up the new post form, clearing it if it is for new post
     const toggleNewPostForm = () => {
@@ -174,11 +177,11 @@ export const Blog = props => {
           setImgUrl("");
         }
         setCreate(create === false ? true : false);
-    }
+    };
 
     const linkStyle = {
       textDecoration: 'none'
-    }
+    };
     return(
       <Router>
         <NavBar toggleNewPostForm={toggleNewPostForm} />
@@ -186,7 +189,7 @@ export const Blog = props => {
           <div className={styles.blog}>
             {
               create === true &&
-              <NewPostForm 
+              <NewPostForm
                   createPost={createPost}
                   updatePost={updatePost}
                   deletePost={deletePost}
@@ -197,13 +200,13 @@ export const Blog = props => {
                   toggle={toggleNewPostForm}
                   changeImgUrl={changeImgUrl}
               />
-            }    
+            }
             <Route exact path="/" render={ () => (
               <ul className={styles.ul}>
                 {posts.map((post) => (
                   <li className={styles.li} key={post.id}>
                     <PostSummary
-                      getPosts={getPosts} 
+                      getPosts={getPosts}
                       post={post}
                       id={post.id}
                       title={post.title}
@@ -213,7 +216,7 @@ export const Blog = props => {
                       imgUrl={post.img_url}
                       deletePost={deletePost}
                       selectPost={selectPost}
-                    />    
+                    />
                   </li>
                 ))}
               </ul>
@@ -237,10 +240,10 @@ export const Blog = props => {
             <li className={styles.titles_li} key={post.id}>
               <p>{post.title}</p>
             </li>
-          ))}  
+          ))}
           </div>
           <div className={styles.sidebar_b}><p>Tags</p>
-            {getTags(posts).map((tag) => 
+            {getTags(posts).map((tag) =>
               <li className={styles.tags_li}>
                 <p>{tag}</p>
               </li>
