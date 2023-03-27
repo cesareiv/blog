@@ -1,7 +1,7 @@
 Flask == 1.0.2
 better_exceptions == 0.2.1
 pytest == 4.0.1
-redis == 3.0.1
+redis == 4.5.3
 gunicorn == 19.9.0
 requests == 2.21.0
 
